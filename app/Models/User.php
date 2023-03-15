@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -36,5 +37,12 @@ class User extends Authenticatable {
             related:Role::class,
             foreignKey: 'role_id'
         );
+    }
+
+    public function tickets(): HasMany {
+        return $this->hasMany(
+            related: Ticket::class,
+            foreignKey: 'user_id'
+        )->orderBy('created_at', "DESC");
     }
 }

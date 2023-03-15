@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Tickets\StoreTicketController;
 use App\Http\Controllers\Travels\IndexAirTravelsController;
 use App\Http\Controllers\Travels\IndexBusTravelsController;
 use App\Http\Controllers\Travels\IndexTrainTravelsController;
@@ -27,3 +29,12 @@ Route::group([
 ], function () {
     Route::get('/', IndexAirTravelsController::class)->name('airJourney');
 });
+
+Route::group([
+    'prefix' => 'tickets',
+    'as' => 'tickets:',
+], function () {
+    Route::post('/', StoreTicketController::class)->name('storeTicket');
+});
+
+Route::get('/{user}/profile', ProfileController::class)->name('clientProfile');

@@ -16,6 +16,13 @@ class ClientResource extends JsonResource {
                 'name' => $this->name,
                 'email' => $this->email,
                 'joinedAt' => $this->created_at
+            ],
+            'relationships' => [
+                'tickets' => TicketResource::collection(
+                    resource: $this->whenLoaded(
+                        relationship: 'tickets'
+                    )
+                )
             ]
         ];
     }
